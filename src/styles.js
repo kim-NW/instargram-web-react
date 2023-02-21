@@ -6,6 +6,7 @@ import reset from "styles-reset";
 export const ligtTheme = {
   fontColor: "red",
   bgColor: "lightyellow",
+  borderColor: "black",
 };
 
 export const darkTheme = {
@@ -21,10 +22,16 @@ export const GlobalStyles = createGlobalStyle`
   input{
     all:unset;
   }
+  .Loginbtn{
+    text-align: center;
+    background-color: #4B89DC;
+    border-radius: 5px;
+  }
   body{
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
-    color: ${(props) => props.theme.fontColor};
-    background-color: ${(props) => props.theme.bgColor};
+    // color: ${(props) => props.theme.fontColor};
+    // background-color: ${(props) => props.theme.bgColor};
   }
+
 `
