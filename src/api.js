@@ -8,6 +8,17 @@ const instance = axios.create({
   },
 });
 
-export const getAllFeeds = async () => {
-  instance.get("feeds/v").then((res) => res.data);
+export const getAllFeeds = () => {
+  return instance.get("feeds").then((res) => res.data);
 };
+
+export const getUserFeeds = ({ queryKey }) => {
+  console.log("api - username", queryKey[1]);
+
+  console.log(queryKey[0])
+
+  let username = queryKey[1];
+  console.log("api - username", username);
+
+  return instance.get("feeds/" + username).then((res) => res.data)
+}

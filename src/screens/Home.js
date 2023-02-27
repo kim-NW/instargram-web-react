@@ -4,15 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 
 function Home() {
 
-    const {data} = useQuery(["feeds"], getAllFeeds);
-    console.log(data);
+  const { data } = useQuery(["feeds"], getAllFeeds);
+  console.log("date", data);
 
   return (
     <div>
-      {/* <Feed />
-      <Feed /> */}
+      {data?.map((feed) => (
+        <Feed key={feed.id} {...feed} />
+      ))}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

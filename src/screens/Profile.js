@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styled from "styled-components"
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
+import { getUserFeeds } from "../api";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 const Header = styled.div`
   display: flex;
@@ -76,6 +79,14 @@ const Icon = styled.span`
 `
 
 function Profile() {
+
+  const { username } = useParams()
+  console.log("username", username)
+
+  const { data } = useQuery(["feeds", username], getUserFeeds);
+
+  console.log("data", data)
+
   return (
     <>
       <Header>
@@ -96,19 +107,22 @@ function Profile() {
           </Row>
         </ProfileInfo>
       </Header>
+
       <Contents>
-        <Feed bg="https://image.yes24.com/images/00_Event/2023/0210yesFunding/bn_pc_245x421.jpg">
-          <Icons>
-            <Icon>
-              <FontAwesomeIcon icon={faHeart} />
-              12
-            </Icon>
-            <Icon>
-              <FontAwesomeIcon icon={faComment} />
-              12
-            </Icon>
-          </Icons>
-        </Feed>
+        {data?.map((feed) => (
+          <Feed bg={feed.contentImg}>
+            <Icons>
+              <Icon>
+                <FontAwesomeIcon icon={faHeart} />
+                {feed.likesNum}
+              </Icon>
+              <Icon>
+                <FontAwesomeIcon icon={faComment} />
+                {feed.reviewsNum}
+              </Icon>
+            </Icons>
+          </Feed>
+        ))}
       </Contents>
     </>
   )
